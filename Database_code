@@ -1,0 +1,68 @@
+CREATE DATABASE Ejogos;
+USE Ejogos;
+
+CREATE TABLE Diretor (
+    id_diretor INT AUTO_INCREMENT PRIMARY KEY,
+    nome_diretor VARCHAR(100) NOT NULL,
+    especializacao VARCHAR(100),
+    qtd_de_projetos INT,
+    projeto_desenvolvimento VARCHAR(100),
+    projeto_completo VARCHAR(100)
+);
+
+CREATE TABLE Departamento (
+    num_sala INT PRIMARY KEY,
+    nome_departamento VARCHAR(100) NOT NULL,
+    id_diretor INT NOT NULL UNIQUE,
+    CONSTRAINT fk_departamento_diretor
+        FOREIGN KEY (id_diretor)
+        REFERENCES Diretor(id_diretor)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
+
+CREATE TABLE Funcionario (
+    id_funcionario INT AUTO_INCREMENT PRIMARY KEY,
+    nome_funcionario VARCHAR(100) NOT NULL,
+    remuneracao DECIMAL(10,2) NOT NULL,
+    num_sala INT NOT NULL,
+
+    CONSTRAINT fk_funcionario_departamento
+        FOREIGN KEY (num_sala)
+        REFERENCES Departamento(num_sala)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT,
+
+    CONSTRAINT chk_remuneracao_positiva
+        CHECK (remuneracao >= 0)
+);
+
+CREATE TABLE Artista (
+    id_funcionario INT PRIMARY KEY,
+    tipo_arte VARCHAR(100),
+    CONSTRAINT fk_artista_funcionario
+        FOREIGN KEY (id_funcionario)
+        REFERENCES Funcionario(id_funcionario)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE Programador (
+    id_funcionario INT PRIMARY KEY,
+    software VARCHAR(100),
+    linguagem_prog VARCHAR(100),
+    CONSTRAINT fk_programador_funcionario
+        FOREIGN KEY (id_funcionario)
+        REFERENCES Funcionario(id_funcionario)
+        ON DELETE CASCADE
+);
+
+
+CREATE TABLE Musico (
+    id_funcionario INT PRIMARY KEY,
+    instrumento_musica VARCHAR(100),
+    CONSTRAINT fk_musico_funcionario
+        FOREIGN KEY (id_funcionario)
+        REFERENCES Funcionario(id_funcionario)
+        ON DELETE CASCADE
+);
