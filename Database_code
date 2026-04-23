@@ -1,7 +1,7 @@
-CREATE DATABASE Ejogos;
+CREATE DATABASE IF NOT EXISTS Ejogos;
 USE Ejogos;
 
-CREATE TABLE Diretor (
+CREATE TABLE IF NOT EXISTS Diretor (
     id_diretor INT AUTO_INCREMENT PRIMARY KEY,
     nome_diretor VARCHAR(100) NOT NULL,
     especializacao VARCHAR(100),
@@ -10,7 +10,7 @@ CREATE TABLE Diretor (
     projeto_completo VARCHAR(100)
 );
 
-CREATE TABLE Departamento (
+CREATE TABLE IF NOT EXISTS Departamento (
     num_sala INT PRIMARY KEY,
     nome_departamento VARCHAR(100) NOT NULL,
     id_diretor INT NOT NULL UNIQUE,
@@ -37,7 +37,7 @@ CREATE TABLE Funcionario (
         CHECK (remuneracao >= 0)
 );
 
-CREATE TABLE Artista (
+CREATE TABLE IF NOT EXISTS Artista (
     id_funcionario INT PRIMARY KEY,
     tipo_arte VARCHAR(100),
     CONSTRAINT fk_artista_funcionario
@@ -46,8 +46,7 @@ CREATE TABLE Artista (
         ON DELETE CASCADE
 );
 
-
-CREATE TABLE Programador (
+CREATE TABLE IF NOT EXISTS Programador (
     id_funcionario INT PRIMARY KEY,
     software VARCHAR(100),
     linguagem_prog VARCHAR(100),
@@ -57,8 +56,7 @@ CREATE TABLE Programador (
         ON DELETE CASCADE
 );
 
-
-CREATE TABLE Musico (
+CREATE TABLE IF NOT EXISTS Musico (
     id_funcionario INT PRIMARY KEY,
     instrumento_musica VARCHAR(100),
     CONSTRAINT fk_musico_funcionario
